@@ -10,6 +10,18 @@ import movies from './reducers'
 const store= createStore(movies); // Here, the Reducers are passed as arguments
 
 console.log("store: ",store);
+console.log("Before-State",store.getState());
+
+//Dispatching the Action by Store, 
+//and this Action object is passed to the Reducer(ie, movies. coz its(movies) the argument that we passed to createStore )
+store.dispatch({
+  type:'ADD_MOVIES',
+  movies:[{name:'Superman'}]
+})
+
+//when the Action is passed to Reducer, the Reducer will return a New-State to the Store and merges it with the curr state
+//The updated state can be Read using store.getState()
+console.log("After-State",store.getState());
 
 ReactDOM.render(
   <React.StrictMode>

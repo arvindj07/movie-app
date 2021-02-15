@@ -17,8 +17,8 @@ function App() {
           {/* {data.map((movie)=>{
             return <MovieCard movie={movie} />      //MovieCard Can also be rendered like this
           })} */}
-          {data.map(movie=>(
-            <MovieCard movie={movie} />
+          {data.map((movie,index)=>(
+            <MovieCard movie={movie} key={`movies-${index}`} />
           ))}
         </div>
       </div>
