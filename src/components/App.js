@@ -14,9 +14,12 @@ function App() {
         </div>
 
         <div className="list">
-          {data.map((movie)=>{
-            return <MovieCard movie={movie} />
-          })}
+          {/* {data.map((movie)=>{
+            return <MovieCard movie={movie} />      //MovieCard Can also be rendered like this
+          })} */}
+          {data.map(movie=>(
+            <MovieCard movie={movie} />
+          ))}
         </div>
       </div>
     </div>
