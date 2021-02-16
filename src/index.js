@@ -8,14 +8,20 @@ import rootReducer from './reducers';
 
 // Middleware 
 // curried form of function logger(obj,next,action)  'obj' object is de-contructed to {dispatch, getState}
-const logger= function({ dispatch,getState }){
-  return function(next){
-    return function(action){
-      // middleware code
-      console.log('ACTION_TYPE: ',action.type);
-      next(action);       //used to call the next middleWare or the dispatch func in this case
-    }
-  }
+// const logger= function({ dispatch,getState }){
+//   return function(next){
+//     return function(action){
+//       // middleware code
+//       console.log('ACTION_TYPE: ',action.type);
+//       next(action);       //used to call the next middleWare or the dispatch func in this case
+//     }
+//   }
+// }
+
+// The MiddleWare can also be written like this
+const logger = ({ dispatch,getState })=> (next)=> (action)=>{
+  console.log('ACTION_TYPE: ',action.type);
+  next(action); // Here ,this next() func calls the dispatch func
 }
 
 // creating the Redux Store and Passing 'rootReducer' Reducer as argument
