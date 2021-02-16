@@ -1,4 +1,11 @@
-import { ADD_TO_FAVOURITES, ADD_MOVIES,REMOVE_FROM_FAVOURITES,SET_SHOW_FAVOURITES } from '../actions';
+import { combineReducers } from 'redux'; // Built-In root-Reducer
+
+import { 
+        ADD_TO_FAVOURITES, 
+        ADD_MOVIES,
+        REMOVE_FROM_FAVOURITES,
+        SET_SHOW_FAVOURITES 
+      } from '../actions';
 
 // the STATE OBJECT in the STORE
 const initialMoviesState= {
@@ -63,14 +70,20 @@ export function search(state=initialSearchState,action){
 }
 
 
-const initialRootState={
-  movies:initialMoviesState,
-  search:initialSearchState,
-};
-export default function rootReducer(state=initialRootState,action){
-  return {
-    movies:movies(state.movie,action),  // Passing the corresponding state ie., state.movie
-    search:search(state.search,action),
-  }
-}
+// const initialRootState={
+//   movies:initialMoviesState,
+//   search:initialSearchState,
+// };
+// export default function rootReducer(state=initialRootState,action){
+//   return {
+//     movies:movies(state.movie,action),  // Passing the corresponding state ie., state.movie
+//     search:search(state.search,action),
+//   }
+// }
+
+// Built-In RootReducer which is used to Combine the REDUCERS
+export default combineReducers({
+  movies:movies,                // defining its movies property with movies Reducer
+  search: search,               // Same as above
+})
 
