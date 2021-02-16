@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore , applyMiddleware} from 'redux';
 
 import './index.css';
 import App from './components/App';
-import rootReducer from './reducers'
+import rootReducer from './reducers';
+
+// Middleware 
+// curried form of function logger(obj,next,action)  'obj' object is de-contructed to {dispatch, getState}
+const logger= function({ dispatch,getState }){
+  return function(next){
+    return function(action){
+      // middleware code
+      console.log('ACTION_TYPE: ',action.type);
+      next(action);       //used to call the next middleWare or the dispatch func in this case
+    }
+  }
+}
 
 // creating the Redux Store and Passing 'rootReducer' Reducer as argument
-const store= createStore(rootReducer); // Here, the Reducers are passed as arguments. It takes only one reducer
+const store= createStore(rootReducer,applyMiddleware(logger)); // Here, the Reducers are passed as arguments. It takes only one reducer
 
 console.log("store: ",store);
 // console.log("Before-State",store.getState()); //getState() gives the State in the Store

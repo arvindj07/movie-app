@@ -17,7 +17,8 @@ const initialMoviesState= {
 //reducer function returns a new State object, as it cant make changes in the current state
 
 export function movies(state= initialMoviesState, action){
-  console.log('MOVIE REDUCER');
+  // console.log('MOVIE REDUCER');
+
   // if(action.type===ADD_MOVIES){
   //   return {
   //     ...state,         //spread operator to copy all properties of 'state' object into a new obj,(not shallow copy)
@@ -65,7 +66,7 @@ const initialSearchState={
   result:{}
 };
 export function search(state=initialSearchState,action){
-  console.log('Search REDUCER');
+  // console.log('Search REDUCER');
   return state;
 }
 
@@ -76,12 +77,14 @@ export function search(state=initialSearchState,action){
 // };
 // export default function rootReducer(state=initialRootState,action){
 //   return {
-//     movies:movies(state.movie,action),  // Passing the corresponding state ie., state.movie
+//     movies:movies(state.movies,action),  // Passing the corresponding state ie., state.movie
 //     search:search(state.search,action),
 //   }
 // }
 
 // Built-In RootReducer which is used to Combine the REDUCERS
+//here, 'movies' and 'search' are the properties of the state object Returned by this combineReducer, just like-> list, favourites , showFavourites properties in 'movies' REDUCER
+
 export default combineReducers({
   movies:movies,                // defining its movies property with movies Reducer
   search: search,               // Same as above
