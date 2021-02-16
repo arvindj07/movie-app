@@ -4,10 +4,10 @@ import {createStore} from 'redux';
 
 import './index.css';
 import App from './components/App';
-import movies from './reducers'
+import rootReducer from './reducers'
 
-// creating the Redux Store and Passing 'movies' Reducer as argument
-const store= createStore(movies); // Here, the Reducers are passed as arguments
+// creating the Redux Store and Passing 'rootReducer' Reducer as argument
+const store= createStore(rootReducer); // Here, the Reducers are passed as arguments. It takes only one reducer
 
 console.log("store: ",store);
 // console.log("Before-State",store.getState()); //getState() gives the State in the Store
@@ -25,7 +25,9 @@ console.log("store: ",store);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App store={store} />
+    <App 
+      store={store} // Passing store as props
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );

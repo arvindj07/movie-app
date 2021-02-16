@@ -26,7 +26,7 @@ class MovieCard extends React.Component{
           <div className="plot">{movie.Plot}</div>
           <div className="footer">
             <div className="rating">{movie.imdbRating}</div>
-            {
+            {// ternary operator
               isFavourite
               ? <button className="unfavourite-btn" onClick={this.handleUnFavouriteClick}>Unfavourite</button> 
               : <button className="favourite-btn" onClick={this.handleFavouriteClick}>Favorite</button>

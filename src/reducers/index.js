@@ -1,12 +1,16 @@
 import { ADD_TO_FAVOURITES, ADD_MOVIES,REMOVE_FROM_FAVOURITES,SET_SHOW_FAVOURITES } from '../actions';
 
+// the STATE OBJECT in the STORE
 const initialMoviesState= {
   list:[],
   favourites:[],
   showFavourites:false,
 }
 
-export default function movies(state= initialMoviesState, action){
+//reducer function returns a new State object, as it cant make changes in the current state
+
+export function movies(state= initialMoviesState, action){
+  console.log('MOVIE REDUCER');
   // if(action.type===ADD_MOVIES){
   //   return {
   //     ...state,         //spread operator to copy all properties of 'state' object into a new obj,(not shallow copy)
@@ -18,8 +22,8 @@ export default function movies(state= initialMoviesState, action){
   switch (action.type){
     case ADD_MOVIES:
       return {
-        ...state,         
-        list:action.movies,
+        ...state,         //spread operator to copy all properties of 'state' object into a new obj,(not shallow copy)
+        list:action.movies, // update the 'list' property with action.movies array
       }
     case ADD_TO_FAVOURITES:
       return {
@@ -48,5 +52,25 @@ export default function movies(state= initialMoviesState, action){
       return state;
   }  
  
+}
+
+const initialSearchState={
+  result:{}
+};
+export function search(state=initialSearchState,action){
+  console.log('Search REDUCER');
+  return state;
+}
+
+
+const initialRootState={
+  movies:initialMoviesState,
+  search:initialSearchState,
+};
+export default function rootReducer(state=initialRootState,action){
+  return {
+    movies:movies(state.movie,action),  // Passing the corresponding state ie., state.movie
+    search:search(state.search,action),
+  }
 }
 
