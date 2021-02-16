@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore , applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './components/App';
@@ -20,12 +21,25 @@ import rootReducer from './reducers';
 
 // The MiddleWare can also be written like this
 const logger = ({ dispatch,getState })=> (next)=> (action)=>{
-  console.log('ACTION_TYPE: ',action.type);
+  //logger code
+  if(typeof action !== 'function'){
+    console.log('ACTION_TYPE: ',action.type);
+  }
   next(action); // Here ,this next() func calls the dispatch func
 }
 
+// This is the exact code in the 'thunk' package
+// 'thunk' Middleware is Used to check if the Action returned from Action-creator is a Function
+// const thunk = ({ dispatch,getState })=> (next)=> (action)=>{
+//   if(typeof action === 'function'){
+//     action(dispatch);   // if the action is a func, then we pass 'dispatch' value to the argument of 'action()'
+//     return;  
+//   }
+//   next(action); // if the 'action' is not a Func, then we return the action Object to the reducer
+// }
+
 // creating the Redux Store and Passing 'rootReducer' Reducer as argument
-const store= createStore(rootReducer,applyMiddleware(logger)); // Here, the Reducers are passed as arguments. It takes only one reducer
+const store= createStore(rootReducer,applyMiddleware(logger,thunk)); // Here, the Reducers are passed as arguments. It takes only one reducer
 
 console.log("store: ",store);
 // console.log("Before-State",store.getState()); //getState() gives the State in the Store
