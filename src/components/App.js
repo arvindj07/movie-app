@@ -1,8 +1,9 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from './Navbar'; // here we r actually receiving NavbarWrapper Comp. as its exported by default
 import MovieCard from './MovieCard';
 import { data } from '../data';
 import { addMovies, setShowFavourites } from '../actions';
+import { StoreContext } from '../index'; // importing this to use the Context Property
 
 class App extends React.Component {
   
@@ -43,12 +44,16 @@ class App extends React.Component {
   render(){
     const { movies, search }= this.props.store.getState(); // getState() contains-> { movies:{}, search{} }
     const { list, favourites, showFavourites }= movies;
-    console.log('Render',this.props.store.getState());
-   
     const displayMovies = showFavourites?favourites:list;
+
+    console.log('Render',this.props.store.getState());
+
     return (
       <div className="App">
-        <Navbar dispatch={this.props.store.dispatch} search={search} />
+        <Navbar 
+          search={search} // This search prop is actually passed to NavbarWrapper Comp. instead of Navbar Comp.
+                          //To know more, chk the top of this file ,where Navbar is imported
+        />  
         <div className="main">
           <div className="tabs">
             <div className={`tab ${showFavourites? '':'active-tabs'}`} onClick={()=> this.onChangeTab(false)}>Movies</div>
@@ -79,4 +84,19 @@ class App extends React.Component {
   
 }
 
-export default App;
+class AppWrapper extends React.Component{
+  render(){
+    return(
+      // StoreContext.Consumer element expects a function as its child(i.e, inside it)
+      <StoreContext.Consumer>
+        {(store)=> <App store={store} />     // This is the function which Consumer expects and it returns App compnent
+                            // ->Here we get 'store' from Context-Provider,when this call-back func is called internally 
+                                //  ->Here We r passing 'store' as props to App Comp.
+        
+        }
+      </StoreContext.Consumer>
+    );
+  }
+}
+
+export default AppWrapper;  // Here the deafult export is AppWrapper nd not App

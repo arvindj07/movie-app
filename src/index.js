@@ -59,16 +59,27 @@ console.log('StoreContext: ',StoreContext);
 //The updated state can be Read using store.getState()
 // console.log("After-State",store.getState());
 
+class Provider extends React.Component{
+  render(){
+    const { store }=this.props; // gets store from props
 
+    // this.props.children renders all the Component wrapped in <Provider> component in RenderDOM
+    // if the element in value={} (eg. here its 'store') changes, then the App component and all its decendants who r using the value 'store' will get re-rendered ,i.e, all the Consumers will get re-rendered 
+    return <StoreContext.Provider value={store}>  
+      {this.props.children} 
+    </StoreContext.Provider>
+  };
+}
+// {/* Passing 'store' as value in StoreContext.Provider to be accessed by App component*/}
+// {/* We r wrapping App component by StoreContext.Provider, so that, 'store' is available to App as well as its decendant by just using StoreContext.Consumer Property and not passing props through all intermediate elements */}
 ReactDOM.render(
   <React.StrictMode>
-    {/* Passing 'store' as value in StoreContext.Provider to be accessed by App component*/}
-    <StoreContext.Provider value={store}> 
-        {/* We r wrapping App component by StoreContext.Provider, so that, 'store' is available to App as well as its decendant by just using StoreContext.Consumer Property and not passing props through all intermediate elements */}
+    {/* Passing store as Props to Provider Class Component */}
+    <Provider store={store}>  
       <App        
-        store={store} // Passing store as props
+        // store={store} // Passing store as props
       />
-    </StoreContext.Provider>
+    </Provider>  
   </React.StrictMode>,
   document.getElementById('root')
 );
