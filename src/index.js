@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import {createStore , applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './components/App';
-import rootReducer from './reducers';
+import rootReducer from './reducers';   // importing the combineReducer from ./reducers (which is exported by default)
 
 // Middleware 
 // curried form of function logger(obj,next,action)  'obj' object is de-contructed to {dispatch, getState}
@@ -44,6 +44,10 @@ const store= createStore(rootReducer,applyMiddleware(logger,thunk)); // Here, th
 console.log("store: ",store);
 // console.log("Before-State",store.getState()); //getState() gives the State in the Store
 
+//Creating Context, for the Store to be available to all the nested/child components
+export const StoreContext = createContext();
+console.log('StoreContext: ',StoreContext);
+
 //Dispatching the Action by Store, 
 //and this Action object is passed to the Reducer(ie, movies. coz its(movies) the argument that we passed to createStore )
 // store.dispatch({
@@ -55,11 +59,16 @@ console.log("store: ",store);
 //The updated state can be Read using store.getState()
 // console.log("After-State",store.getState());
 
+
 ReactDOM.render(
   <React.StrictMode>
-    <App 
-      store={store} // Passing store as props
-    />
+    {/* Passing 'store' as value in StoreContext.Provider to be accessed by App component*/}
+    <StoreContext.Provider value={store}> 
+        {/* We r wrapping App component by StoreContext.Provider, so that, 'store' is available to App as well as its decendant by just using StoreContext.Consumer Property and not passing props through all intermediate elements */}
+      <App        
+        store={store} // Passing store as props
+      />
+    </StoreContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

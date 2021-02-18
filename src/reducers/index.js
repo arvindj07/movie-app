@@ -73,8 +73,8 @@ export function movies(state= initialMoviesState, action){
 
 
 const initialSearchState={
-  result:{},
-  showSearchResults:false,
+  result:{},                  // to store the current search result
+  showSearchResults:false,   //to show search results or not
 };
 
 // Search Reducer

@@ -52,11 +52,11 @@ export function addMovieToList(movie){
 
 // This action creator return a function instead of an Object, which is handled by 'Thunk' Middleware in index.js-src
 export function handleMovieSearch(movie){
-  const url=`http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;
+  const url=`http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;  // url to the Api
 
   return function(dispatch){
     fetch(url)
-    .then(response=> response.json())
+    .then(response=> response.json())   // to get the response in json format
     .then(movie => {
       console.log('Movie: ',movie);
 

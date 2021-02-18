@@ -23,7 +23,7 @@ class Navbar extends React.Component{
   handleSearch=()=>{
     const { searchText  }=this.state; 
 
-    this.props.dispatch(handleMovieSearch(searchText)); // To fetch the resultpi and store it in the Redux 'Store'
+    this.props.dispatch(handleMovieSearch(searchText)); // To fetch the result and store it in the Redux 'Store'
   }
 
   handleChange=(e)=>{     // we will get The Event Object as an Argument
