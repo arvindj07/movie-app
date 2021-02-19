@@ -1,9 +1,10 @@
 import React from 'react';
+import {  connect  } from 'react-redux';     // for Connecting Component with Store
 import Navbar from './Navbar'; // here we r actually receiving NavbarWrapper Comp. as its exported by default
 import MovieCard from './MovieCard';
 import { data } from '../data';
 import { addMovies, setShowFavourites } from '../actions';
-import { StoreContext , connect } from '../index'; // importing this to use the Context Property
+import { StoreContext  } from '../index'; // importing this to use the Context Property
 
 class App extends React.Component {
   
