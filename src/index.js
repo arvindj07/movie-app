@@ -44,10 +44,6 @@ const store= createStore(rootReducer,applyMiddleware(logger,thunk)); // Here, th
 console.log("store: ",store);
 // console.log("Before-State",store.getState()); //getState() gives the State in the Store
 
-//Creating Context, for the Store to be available to all the nested/child components
-export const StoreContext = createContext();
-console.log('StoreContext: ',StoreContext);
-
 //Dispatching the Action by Store, 
 //and this Action object is passed to the Reducer(ie, movies. coz its(movies) the argument that we passed to createStore )
 // store.dispatch({
@@ -59,12 +55,16 @@ console.log('StoreContext: ',StoreContext);
 //The updated state can be Read using store.getState()
 // console.log("After-State",store.getState());
 
+//Creating Context, for the Store to be available to all the nested/child components
+export const StoreContext = createContext();
+console.log('StoreContext: ',StoreContext);
+
 class Provider extends React.Component{
   render(){
     const { store }=this.props; // gets store from props
 
     // this.props.children renders all the Component wrapped in <Provider> component in RenderDOM
-    // if the element in value={} (eg. here its 'store') changes, then the App component and all its decendants who r using the value 'store' will get re-rendered ,i.e, all the Consumers will get re-rendered 
+    // if the element in value={} (eg. here its 'store') changes, then the App component and all its decendants who r using the value 'store' will get re-rendered ,i.e, all the Child-Components with Consumer will get re-rendered 
     return <StoreContext.Provider value={store}>  
       {this.props.children} 
     </StoreContext.Provider>

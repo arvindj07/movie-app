@@ -91,8 +91,7 @@ class AppWrapper extends React.Component{
       <StoreContext.Consumer>
         {(store)=> <App store={store} />     // This is the function which Consumer expects and it returns App compnent
                             // ->Here we get 'store' from Context-Provider,when this call-back func is called internally 
-                                //  ->Here We r passing 'store' as props to App Comp.
-        
+                                //  ->Here We r passing 'store' as props to App Comp.        
         }
       </StoreContext.Consumer>
     );

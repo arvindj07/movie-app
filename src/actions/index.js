@@ -54,6 +54,7 @@ export function addMovieToList(movie){
 export function handleMovieSearch(movie){
   const url=`http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;  // url to the Api
 
+  //We get dispatch func as an argument coz of 'Thunk'
   return function(dispatch){
     fetch(url)
     .then(response=> response.json())   // to get the response in json format
